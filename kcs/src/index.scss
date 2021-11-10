@@ -1,0 +1,17 @@
+// 測試bootstrap改顏色機制\
+$dark-color: #ffffff;
+$navbar-dark-color:                 rgba($dark-color, .55) !default;
+$navbar-dark-hover-color:           rgba($dark-color, .75) !default;
+$navbar-dark-active-color:          $dark-color !default;
+$navbar-dark-disabled-color:        rgba($dark-color, .25) !default;
+$navbar-dark-toggler-border-color:  rgba($dark-color, .1) !default;
+$navbar-dark-brand-hover-color:     $navbar-dark-hover-color !default;
+// 以上修改navbar內容顏色
+
+// 以上新增bootstrap樣式
+
+@import "/node_modules/bootstrap/scss/bootstrap.scss";
+
+body{
+    overflow: hidden;
+}

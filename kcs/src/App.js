@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+
+import './App.scss';
+import KCSNavbar from './components/KCSNavbar'
+import KCSFooter from './components/KCSFooter'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <KCSNavbar id="Navbar" />
+      <KCSFooter id="Footer" />
     </div>
   );
 }

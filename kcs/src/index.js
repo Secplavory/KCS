@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// Above are buildin dependency when project init.
 
 ReactDOM.render(
   <React.StrictMode>
