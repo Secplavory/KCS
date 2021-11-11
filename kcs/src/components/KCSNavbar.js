@@ -1,15 +1,35 @@
 import React from "react";
+import { useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
  Navbar,
  Nav,
 } from "react-bootstrap"; //bootstrap導入
 import './KCSNavbar.scss';
 // icon導入
+import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GrHistory } from 'react-icons/gr';
 import { BiMessageRounded } from "react-icons/bi";
 export default function KCSNavbar(props) {
+  const [navbarClassName, setNavbarClassName] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if(location.pathname.includes("PersonalInformation")){
+      setNavbarClassName("PI");
+    }else if(location.pathname.includes("RecordDiet")){
+      setNavbarClassName("RD");
+    }
+
+  }, [location])
+
   return (
-    <Navbar id={props.id} fixed="sticky" expand="lg" className="ml-auto">
+    <Navbar id={props.id} fixed="sticky" expand="lg" className={ navbarClassName }>
+      <div className="left">
+        <button className="back" onClick={() => navigate(-1)}>
+          <AiOutlineArrowLeft />
+        </button>
+      </div>
       <div className="right">
           <a className="message" href="/">
             <BiMessageRounded />

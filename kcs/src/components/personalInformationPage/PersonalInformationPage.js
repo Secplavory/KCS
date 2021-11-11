@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import './PersonalInformationPage.scss';
-
 
 import { AiOutlinePlus } from "react-icons/ai";
 import Individual from '../../asserts/PersonalInformationPage/Individual.png'
@@ -12,6 +11,22 @@ import BloodPressure_2 from '../../asserts/PersonalInformationPage/BloodPressure
 import BloodPressure_3 from '../../asserts/PersonalInformationPage/BloodPressure_3.png'
 
 function PersonalInformationPage() {
+  const ref = useRef();
+  const handleScroll = useCallback(() => {
+    var bottom = document.querySelector("#PI .bottom");
+    var bottom_y = bottom.getBoundingClientRect().y;
+    var viewport_height = window.innerHeight;
+    var declare_height = viewport_height - bottom_y - 58;
+    // console.log(declare_height)
+    bottom.style.height = declare_height.toString() + "px";
+    // console.log(bottom.style.height)
+  }, []);
+  useEffect(() => {
+    const div = ref.current;
+    div.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+  }, [handleScroll]);
+
     return (
       <div id="PI">
         <div className="top">
@@ -80,14 +95,16 @@ function PersonalInformationPage() {
               </div>
             </div>
             <div className="pi_right_bottom">
-              <div className="record_diet">
-                <AiOutlinePlus />
-                <p>紀錄飲食</p>                
-              </div>
+              <a href="/RecordDiet">
+                <div className="record_diet">
+                  <AiOutlinePlus />
+                  <p>紀錄飲食</p>
+                </div>
+              </a>
             </div>
           </div>
         </div>
-        <div className="bottom">
+        <div className="bottom" ref={ ref }>
           <div className="post_area">
             <div className="post"></div>
             <div className="post"></div>
@@ -110,6 +127,6 @@ function PersonalInformationPage() {
         </div>
       </div>
     );
-  }
-  
-  export default PersonalInformationPage;
+}
+
+export default PersonalInformationPage;

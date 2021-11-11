@@ -1,4 +1,6 @@
 import React from "react";
+import { useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import './KCSFooter.scss';
 //  import icon & img
 import BloodPressure from '../asserts/Footer/BloodPressure.png'
@@ -8,8 +10,19 @@ import Search from '../asserts/Footer/Search.png'
 import Individual from '../asserts/Footer/Individual.png'
 
 export default function KCSFooter(props) {
+  const [footerClassName, setFooterClassName] = useState("");
+
+  const location = useLocation();
+  React.useEffect(() => {
+    if(!location.pathname.includes("PersonalInformation")){
+      setFooterClassName("nonFooter");
+    }else{
+      setFooterClassName("");
+    }
+  }, [location])
+
   return (
-    <footer id={ props.id }>
+    <footer id={ props.id } className={ footerClassName }>
       <div className="footer_row">
         <div>
           <a className="footer_item" href="/">
@@ -28,7 +41,7 @@ export default function KCSFooter(props) {
           </a>
         </div>
         <div>
-          <a className="footer_item" href="/">
+          <a className="footer_item" href="/RecordDiet">
             <div className="item_img">
               <img src={ Diet } alt=""></img>
             </div>
@@ -44,7 +57,7 @@ export default function KCSFooter(props) {
           </a>
         </div>
         <div>
-          <a className="footer_item" href="/">
+          <a className="footer_item" href="/PersonalInformation">
             <div className="item_img">
               <img src={ Individual } alt=""></img>
             </div>
