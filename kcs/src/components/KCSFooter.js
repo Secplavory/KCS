@@ -49,7 +49,7 @@ export default function KCSFooter(props) {
           </a>
         </div>
         <div>
-          <a className="footer_item" href="/">
+          <a className="footer_item" href="/Search">
             <div className="item_img">
               <img src={ Search } alt=""></img>
             </div>

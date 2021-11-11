@@ -10,6 +10,8 @@ import './KCSNavbar.scss';
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { GrHistory } from 'react-icons/gr';
 import { BiMessageRounded } from "react-icons/bi";
+import { FaSearch } from "react-icons/fa";
+
 export default function KCSNavbar(props) {
   const [navbarClassName, setNavbarClassName] = useState("");
   const location = useLocation();
@@ -19,6 +21,8 @@ export default function KCSNavbar(props) {
       setNavbarClassName("PI");
     }else if(location.pathname.includes("RecordDiet")){
       setNavbarClassName("RD");
+    }else if(location.pathname.includes("Search")){
+      setNavbarClassName("SP");
     }
 
   }, [location])
@@ -29,6 +33,10 @@ export default function KCSNavbar(props) {
         <button className="back" onClick={() => navigate(-1)}>
           <AiOutlineArrowLeft />
         </button>
+      </div>
+      <div className="center">
+        <FaSearch />
+        <input type="text"></input>
       </div>
       <div className="right">
           <a className="message" href="/">

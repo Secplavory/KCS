@@ -14,14 +14,14 @@
         }
     }
     div.left {
+        margin: 3px 0 0 0;
         position: relative;
+        display: flex;
+        justify-content: space-between;
         top: 1.5px;
         svg {
             position: relative;
-            top: 1px;
             left: 1.5px;
-            width: 25px;
-            height: 25px;
             color: black;
             opacity: 0.25;
         }
@@ -31,17 +31,43 @@
             align-items: center;
             background: transparent;
             border: none;
-            margin: 0.1rem 0.3rem;
-            width: 32.5px;
-            height: 32.5px;
+            width: 35px;
+            height: 35px;
         }
         .back {
             position: relative;
             top: 1px;
             svg {
-                width: 25px;
-                height: 25px;
+                width: 35px;
+                height: 35px;
             }
+        }
+    }
+    div.center {
+        display: none;
+        position: relative;
+        top: 3px;
+        svg {
+            position: absolute;
+            top: 4px;
+            left: 7.5px;
+            color: rgba($color: #000000, $alpha: 0.35);
+            -moz-transform: scaleX(-1);
+            -webkit-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+        input {
+            background: #f5f5f5;
+            border-radius: 7.5px;
+            width: 200px;
+            line-height: 1.5;
+            padding: 0 5px 0 27.5px;
+            margin: 0;
+            display: inline-block;
+            outline: none;
+            appearance: none;
+            border: none;
         }
     }
     div.right {
@@ -68,8 +94,8 @@
             align-items: center;
             margin: 0.1rem 0.3rem;
             padding: 0;
-            width: 32.5px;
-            height: 32.5px;
+            width: 35px;
+            height: 35px;
         }
         .message {
             svg {
@@ -85,16 +111,29 @@
         }
     }
 }
-#Navbar.PI{
-    .left{
+#Navbar.PI {
+    .left {
         display: none;
     }
-    .right{
+    .right {
         width: 100%;
     }
 }
-#Navbar.RD{
-    .right{
+#Navbar.RD {
+    .right {
         display: none;
+    }
+}
+#Navbar.SP {
+    div.center {
+        display: flex;
+    }
+    .right {
+        .message {
+            display: none;
+        }
+        .history {
+            display: none;
+        }
     }
 }
