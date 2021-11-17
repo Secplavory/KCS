@@ -34,7 +34,7 @@ function SearchPage() {
     return (
         <div id="SP">
             <div className="search_scrollbar">
-                <div className="search_choice" onClick={ (e)=>filterButton(e) }><span>腎臟病第1期</span></div>
+                <div className="search_choice active" onClick={ (e)=>filterButton(e) }><span>腎臟病第1期</span></div>
                 <div className="search_choice" onClick={ (e)=>filterButton(e) }><span>腎臟病第2期</span></div>
                 <div className="search_choice" onClick={ (e)=>filterButton(e) }><span>腎臟病第3期</span></div>
                 <div className="search_choice" onClick={ (e)=>filterButton(e) }><span>腎臟病第4期</span></div>

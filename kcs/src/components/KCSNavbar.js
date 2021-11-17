@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import {
  Navbar,
  Nav,
+ NavLink
 } from "react-bootstrap"; //bootstrap導入
 import './KCSNavbar.scss';
 // icon導入
@@ -23,6 +24,8 @@ export default function KCSNavbar(props) {
       setNavbarClassName("RD");
     }else if(location.pathname.includes("Search")){
       setNavbarClassName("SP");
+    }else if(location.pathname.includes("BloodPressure")){
+      setNavbarClassName("Blood");
     }
 
   }, [location])
@@ -49,11 +52,11 @@ export default function KCSNavbar(props) {
         </div>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="container-fluid">
-          <Nav.Link className="ms-auto">血壓</Nav.Link>
-          <Nav.Link className="ms-auto">血糖</Nav.Link>
-          <Nav.Link className="ms-auto">飲食</Nav.Link>
-          <Nav.Link className="ms-auto">探索</Nav.Link>
-          <Nav.Link className="ms-auto">個人資訊</Nav.Link>
+          <NavLink href="/BloodPressure" className="ms-auto">血壓</NavLink>
+          <NavLink className="ms-auto">血糖</NavLink>
+          <NavLink href="/RecordDiet"  className="ms-auto">飲食</NavLink>
+          <NavLink href="/Search" className="ms-auto">探索</NavLink>
+          <NavLink href="/PersonalInformation"  className="ms-auto">個人資訊</NavLink>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
