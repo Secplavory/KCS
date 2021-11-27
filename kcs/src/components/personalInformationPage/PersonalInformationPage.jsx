@@ -14,12 +14,13 @@ function PersonalInformationPage() {
   const ref = useRef();
   const handleScroll = useCallback(() => {
     var bottom = document.querySelector("#PI .bottom");
+    var footer = document.querySelector("#Footer");
     var bottom_y = bottom.getBoundingClientRect().y;
     var viewport_height = window.innerHeight;
     var declare_height = viewport_height - bottom_y - 58;
     // console.log(declare_height)
     bottom.style.height = declare_height.toString() + "px";
-    // console.log(bottom.style.height)
+    footer.style.bottom = (0).toString() + "px";;
   }, []);
   useEffect(() => {
     const div = ref.current;

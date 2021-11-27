@@ -9,7 +9,7 @@ function SearchPage() {
         var bottom = document.querySelector("#SP .bottom");
         var bottom_y = bottom.getBoundingClientRect().y;
         var viewport_height = window.innerHeight;
-        var declare_height = viewport_height - bottom_y;
+        var declare_height = viewport_height - bottom_y - 61 ;
         bottom.style.height = declare_height.toString() + "px";
     }, []);
     useEffect(() => {
