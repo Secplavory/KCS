@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
  Navbar,
@@ -14,11 +14,13 @@ import { BiMessageRounded } from "react-icons/bi";
 import { FaSearch } from "react-icons/fa";
 
 export default function KCSNavbar(props) {
-  const [navbarClassName, setNavbarClassName] = useState("");
+  const [navbarClassName, setNavbarClassName] = useState("SignInUp");
   const location = useLocation();
   const navigate = useNavigate();
-  React.useEffect(() => {
-    if(location.pathname.includes("PersonalInformation")){
+  useEffect(() => {
+    if(location.pathname.includes("SignInUp")){
+      setNavbarClassName("SignInUp");
+    }else if(location.pathname.includes("PersonalInformation")){
       setNavbarClassName("PI");
     }else if(location.pathname.includes("RecordDiet")){
       setNavbarClassName("RD");
@@ -27,7 +29,6 @@ export default function KCSNavbar(props) {
     }else if(location.pathname.includes("BloodPressure") || location.pathname.includes("BloodSugar")){
       setNavbarClassName("Blood");
     }
-
   }, [location])
 
   return (

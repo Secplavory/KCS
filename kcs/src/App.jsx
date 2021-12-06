@@ -1,9 +1,9 @@
-import {BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import React from "react";
-// import { Helmet } from 'react-helmet'-
 import './App.scss';
 import KCSNavbar from './components/KCSNavbar.jsx'
 import KCSFooter from './components/KCSFooter.jsx'
+import SignInUpPage from './components/signInUpPage/SignInUpPage.jsx'
 import BloodPressurePage from './components/bloodPressurePage/BloodPressurePage.jsx'
 import BloodSugarPage from './components/bloodSugarPage/BloodSugarPage.jsx'
 import RecordDietPage from './components/recordDietPage/RecordDietPage.jsx'
@@ -17,7 +17,8 @@ function App() {
       <Router>
         <KCSNavbar id="Navbar" />
         <Routes>
-          <Route path="/" element={<Navigate replace to="/PersonalInformation" />} />
+          <Route path="/" element={<Navigate replace to="/SignInUp" />} />
+          <Route path="/SignInUp" element={ <SignInUpPage /> } />
           <Route path="/BloodPressure" element={ <BloodPressurePage /> }/>
           <Route path="/BloodSugar" element={ <BloodSugarPage /> }/>
           <Route path="/RecordDiet" element={ <RecordDietPage /> }/>
