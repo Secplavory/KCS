@@ -1,26 +1,84 @@
 import React from "react";
 import axios from 'axios';
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './SignInUpPage.scss';
 
-function SignInUpPage() {
-    const navigate = useNavigate();
-    const Login = async () =>{
-      var myParams = {
-        type: "login"
-    }
-      try {
-        const get = await axios.post('http://localhost:5000/api/login', myParams);
-        console.log(get);
-      } catch (error) {
-        console.log(error);
+function SignInUpPage(props) {
+  const navigate = useNavigate();
+  const [loginUserPhone, setLoginUserPhone] = useState("");
+  const [loginUserPassword, setLoginUserPassword] = useState("");
+  const [registerUserName, setRegisterUserName] = useState("");
+  const [registerUserPhone, setRegisterUserPhone] = useState("");
+  const [registerUserPassword, setRegisterUserPassword] = useState("");
+  const loginUserPhoneChangeEvent = () =>{
+    let userPhone = document.getElementById('sign-in-phone').value;
+    setLoginUserPhone(userPhone);
+  }
+  const loginUserPasswordChangeEvent = () =>{
+    let userPass = document.getElementById('sign-in-pass').value;
+    setLoginUserPassword(userPass);
+  }
+  const registerUserNameChangeEvent = () =>{
+    let userName = document.getElementById('sign-up-user').value;
+    setRegisterUserName(userName);
+  }
+  const registerUserPhoneChangeEvent = () =>{
+    let userPhone = document.getElementById('sign-up-phone').value;
+    setRegisterUserPhone(userPhone);
+  }
+  const registerUserPasswordChangeEvent = () =>{
+    let userPass = document.getElementById('sign-up-pass').value;
+    setRegisterUserPassword(userPass);
+  }
+  const loginUser = async () =>{
+    if(loginUserPhone !== '' && loginUserPassword !== ''){
+      var loginUserData = {
+        type: "login",
+        phone: loginUserPhone,
+        password: loginUserPassword
       }
-      // axios.post('http://localhost:5000/api/login', myParams)
-      //   .then(function(response){
-      //         console.log(response);
-      // }).catch(function(error){
-      //     console.log(error);
-      // });
+      try {
+        const get = await axios.post('http://localhost:5000/api/loginUser', loginUserData);
+        let loginPackage =get['data'];
+        console.log(loginPackage['permission'])
+        if (loginPackage['permission']){
+          props.setUserHash(loginPackage['userHash']);
+          navigate('/PersonalInformation');
+        }else{
+          alert("電話或密碼錯誤！")
+        }
+      } catch (error) {
+        alert(error);
+      }
+    }else{
+      alert("請輸入電話和密碼！")
+    }
+  }
+  const registerUser = async () =>{
+    if(registerUserName !== '' && registerUserPhone !== '' && registerUserPassword !== ''){
+      var loginUserData = {
+        type: "register",
+        name: registerUserName,
+        phone: registerUserPhone,
+        password: registerUserPassword
+      }
+      try {
+        const get = await axios.post('http://localhost:5000/api/registerUser', loginUserData);
+        let registerPackage =get['data'];
+        if (registerPackage['permission']){
+          if(registerPackage['status']){
+            alert("註冊成功！")
+          }
+        }else{
+          alert("資料輸入錯誤！")
+        }
+      } catch (error) {
+        alert(error);
+      }
+    }else{
+      alert("請輸入您完整的個人資料！")
+    }
   }
   return (
     <div className="SignInUpPage">
@@ -31,33 +89,33 @@ function SignInUpPage() {
             <div className="login-form">
               <div className="sign-in-htm">
                 <div className="group">
-                  <label htmlFor="sign-in-user" className="label">Username</label>
-                  <input id="sign-in-user" type="text" className="input"/>
+                  <label htmlFor="sign-in-phone" className="label">User Phone Number</label>
+                  <input id="sign-in-phone" type="text" className="input" onChange={ loginUserPhoneChangeEvent }/>
                 </div>
                 <div className="group">
-                  <label htmlFor="pass" className="label">Password</label>
-                  <input id="pass" type="password" className="input" data-type="password" />
+                  <label htmlFor="sign-in-pass" className="label">Password</label>
+                  <input id="sign-in-pass" type="password" className="input" data-type="password" onChange={ loginUserPasswordChangeEvent }/>
                 </div>
                 <div className="group">
-                  <button className="button" onClick={ Login }>Sign In</button>
+                  <button className="button" onClick={ loginUser }>Sign In</button>
                 </div>
                 <div className="hr"></div>
               </div>
               <div className="sign-up-htm">
                 <div className="group">
                   <label htmlFor="sign-up-user" className="label">Username</label>
-                  <input id="sign-up-user" type="text" className="input" />
+                  <input id="sign-up-user" type="text" className="input" onChange={ registerUserNameChangeEvent } />
                 </div>
                 <div className="group">
-                  <label htmlFor="phone" className="label">Phone Number</label>
-                  <input id="phone" type="text" className="input" />
+                  <label htmlFor="sign-up-phone" className="label">User Phone Number</label>
+                  <input id="sign-up-phone" type="text" className="input" onChange={ registerUserPhoneChangeEvent } />
                 </div>
                 <div className="group">
                   <label htmlFor="sign-up-pass" className="label">Password</label>
-                  <input id="sign-up-pass" type="password" className="input" data-type="password" />
+                  <input id="sign-up-pass" type="password" className="input" data-type="password" onChange={ registerUserPasswordChangeEvent } />
                 </div>
                 <div className="group">
-                  <button className="button" onClick={() => navigate('/PersonalInformation')}>Sign Up</button>
+                  <button className="button" onClick={ registerUser }>Sign Up</button>
                 </div>
                 <div className="hr"></div>
               </div>
