@@ -41,7 +41,7 @@ function PersonalInformationPage(props) {
         setUserBloodSugar(userInfo['bloodSugar']);
     } 
     catch (error){
-        alert("GET Error!!");    
+        alert("TEST MODE!!");    
     }  
   }, []);
 

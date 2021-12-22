@@ -23,7 +23,7 @@ export default function KCSFooter(props) {
     <footer id={ props.id } className={ footerClassName }>
       <div className="footer_row">
         <div>
-          <a className="footer_item" href="/BloodPressure">
+          <a className="footer_item" href="/NormalUser/BloodPressure">
             <div className="item_img">
               <img src={ BloodPressure } alt=""></img>
             </div>
@@ -31,7 +31,7 @@ export default function KCSFooter(props) {
           </a>
         </div>
         <div>
-          <a className="footer_item" href="/BloodSugar">
+          <a className="footer_item" href="/NormalUser/BloodSugar">
             <div className="item_img">
               <img src={ BloodSugar } alt=""></img>
             </div>
@@ -39,7 +39,7 @@ export default function KCSFooter(props) {
           </a>
         </div>
         <div>
-          <a className="footer_item" href="/RecordDiet">
+          <a className="footer_item" href="/NormalUser/RecordDiet">
             <div className="item_img">
               <img src={ Diet } alt=""></img>
             </div>
@@ -47,7 +47,7 @@ export default function KCSFooter(props) {
           </a>
         </div>
         <div>
-          <a className="footer_item" href="/Search">
+          <a className="footer_item" href="/NormalUser/Search">
             <div className="item_img">
               <img src={ Search } alt=""></img>
             </div>
@@ -55,7 +55,7 @@ export default function KCSFooter(props) {
           </a>
         </div>
         <div>
-          <a className="footer_item" href="/PersonalInformation">
+          <a className="footer_item" href="/NormalUser/PersonalInformation">
             <div className="item_img">
               <img src={ Individual } alt=""></img>
             </div>

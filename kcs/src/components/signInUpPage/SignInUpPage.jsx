@@ -1,5 +1,6 @@
 import React from "react";
 import axios from 'axios';
+import appAxios from "../../appAxios.js"
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './SignInUpPage.scss';
@@ -33,18 +34,19 @@ function SignInUpPage(props) {
   }
   const loginUser = async () =>{
     if(loginUserPhone !== '' && loginUserPassword !== ''){
-      var loginUserData = {
-        type: "login",
-        phone: loginUserPhone,
-        password: loginUserPassword
+      let loginUserData = {
+        'phoneNumber': loginUserPhone,
+        'password': loginUserPassword
       }
+      console.log(loginUserData['phoneNumber'])
+      console.log(loginUserData['password'])
       try {
-        const get = await axios.post('http://localhost:5000/api/loginUser', loginUserData);
+        const get = await appAxios.post('/loginUser', loginUserData);
         let loginPackage =get['data'];
-        console.log(loginPackage['permission'])
-        if (loginPackage['permission']){
-          props.setUserHash(loginPackage['userHash']);
-          navigate('/PersonalInformation');
+        console.log(loginPackage)
+        if (loginPackage['status'] === "0000"){
+          props.setUserHash("0000");
+          navigate('/NormalUser/PersonalInformation');
         }else{
           alert("電話或密碼錯誤！")
         }
@@ -74,7 +76,7 @@ function SignInUpPage(props) {
           alert("資料輸入錯誤！")
         }
       } catch (error) {
-        alert(error);
+        alert("暫時無註冊功能喔！");
       }
     }else{
       alert("請輸入您完整的個人資料！")

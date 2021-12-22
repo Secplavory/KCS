@@ -21,13 +21,16 @@ function App() {
       <Router>
         <KCSNavbar id="Navbar" />
         <Routes>
-          <Route path="/" element={<Navigate replace to="/SignInUp" />} />
-          <Route path="/SignInUp" element={ <SignInUpPage setUserHash={ loginSetUserHash } /> } />
-          <Route path="/BloodPressure" element={ <BloodPressurePage /> }/>
-          <Route path="/BloodSugar" element={ <BloodSugarPage /> }/>
-          <Route path="/RecordDiet" element={ <RecordDietPage /> }/>
-          <Route path="/Search" element={ <Search /> }/>
-          <Route path="/PersonalInformation" element={ <PersonalInformationPage userHash={ userHash } /> } />
+          <Route path="/"  element={<Navigate replace to="/NormalUser" />} />
+          <Route path="/NormalUser"  element={<Navigate replace to="/NormalUser/SignInUp" />} />
+          <Route path="/NormalUser">
+            <Route index path="SignInUp" element={ <SignInUpPage setUserHash={ loginSetUserHash } /> } />
+            <Route path="BloodPressure" element={ <BloodPressurePage /> }/>
+            <Route path="BloodSugar" element={ <BloodSugarPage /> }/>
+            <Route path="RecordDiet" element={ <RecordDietPage /> }/>
+            <Route path="Search" element={ <Search /> }/>
+            <Route path="PersonalInformation" element={ <PersonalInformationPage userHash={ userHash } /> } />
+          </Route>
         </Routes>
         <KCSFooter id="Footer" />
       </Router>
