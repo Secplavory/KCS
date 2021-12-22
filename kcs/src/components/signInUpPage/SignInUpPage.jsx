@@ -46,7 +46,7 @@ function SignInUpPage(props) {
         console.log(loginPackage)
         if (loginPackage['status'] === "0000"){
           props.setUserHash("0000");
-          navigate('/NormalUser/PersonalInformation');
+          navigate('/PersonalInformation');
         }else{
           alert("電話或密碼錯誤！")
         }
@@ -85,44 +85,47 @@ function SignInUpPage(props) {
   return (
     <div className="SignInUpPage">
         <div className="login-wrap">
-          <div className="login-html">
-            <input id="tab-1" type="radio" name="tab" className="sign-in" defaultChecked="check" /><label htmlFor="tab-1" className="tab">Sign In</label>
-            <input id="tab-2" type="radio" name="tab" className="sign-up"/><label htmlFor="tab-2" className="tab">Sign Up</label>
-            <div className="login-form">
-              <div className="sign-in-htm">
-                <div className="group">
-                  <label htmlFor="sign-in-phone" className="label">User Phone Number</label>
-                  <input id="sign-in-phone" type="text" className="input" onChange={ loginUserPhoneChangeEvent }/>
+          <div className="login-scene">
+            <div className="login-html">
+              <input id="tab-1" type="radio" name="tab" className="sign-in" defaultChecked="check" /><label htmlFor="tab-1" className="tab">Sign In</label>
+              <input id="tab-2" type="radio" name="tab" className="sign-up"/><label htmlFor="tab-2" className="tab">Sign Up</label>
+              <div className="login-form">
+                <div className="sign-in-htm">
+                  <div className="group">
+                    <label htmlFor="sign-in-phone" className="label">User Phone Number</label>
+                    <input id="sign-in-phone" type="text" className="input" onChange={ loginUserPhoneChangeEvent }/>
+                  </div>
+                  <div className="group">
+                    <label htmlFor="sign-in-pass" className="label">Password</label>
+                    <input id="sign-in-pass" type="password" className="input" data-type="password" onChange={ loginUserPasswordChangeEvent }/>
+                  </div>
+                  <div className="group">
+                    <button className="button" onClick={ loginUser }>Sign In</button>
+                  </div>
+                  <div className="hr"></div>
                 </div>
-                <div className="group">
-                  <label htmlFor="sign-in-pass" className="label">Password</label>
-                  <input id="sign-in-pass" type="password" className="input" data-type="password" onChange={ loginUserPasswordChangeEvent }/>
+                <div className="sign-up-htm">
+                  <div className="group">
+                    <label htmlFor="sign-up-user" className="label">Username</label>
+                    <input id="sign-up-user" type="text" className="input" onChange={ registerUserNameChangeEvent } />
+                  </div>
+                  <div className="group">
+                    <label htmlFor="sign-up-phone" className="label">User Phone Number</label>
+                    <input id="sign-up-phone" type="text" className="input" onChange={ registerUserPhoneChangeEvent } />
+                  </div>
+                  <div className="group">
+                    <label htmlFor="sign-up-pass" className="label">Password</label>
+                    <input id="sign-up-pass" type="password" className="input" data-type="password" onChange={ registerUserPasswordChangeEvent } />
+                  </div>
+                  <div className="group">
+                    <button className="button" onClick={ registerUser }>Sign Up</button>
+                  </div>
+                  <div className="hr"></div>
                 </div>
-                <div className="group">
-                  <button className="button" onClick={ loginUser }>Sign In</button>
-                </div>
-                <div className="hr"></div>
-              </div>
-              <div className="sign-up-htm">
-                <div className="group">
-                  <label htmlFor="sign-up-user" className="label">Username</label>
-                  <input id="sign-up-user" type="text" className="input" onChange={ registerUserNameChangeEvent } />
-                </div>
-                <div className="group">
-                  <label htmlFor="sign-up-phone" className="label">User Phone Number</label>
-                  <input id="sign-up-phone" type="text" className="input" onChange={ registerUserPhoneChangeEvent } />
-                </div>
-                <div className="group">
-                  <label htmlFor="sign-up-pass" className="label">Password</label>
-                  <input id="sign-up-pass" type="password" className="input" data-type="password" onChange={ registerUserPasswordChangeEvent } />
-                </div>
-                <div className="group">
-                  <button className="button" onClick={ registerUser }>Sign Up</button>
-                </div>
-                <div className="hr"></div>
               </div>
             </div>
           </div>
+
         </div>
     </div>
   );

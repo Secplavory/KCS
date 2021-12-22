@@ -53,11 +53,11 @@ export default function KCSNavbar(props) {
         </div>
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="container-fluid">
-          <NavLink href="/NormalUser/BloodPressure" className="ms-auto">血壓</NavLink>
-          <NavLink href="/NormalUser/BloodSugar" className="ms-auto">血糖</NavLink>
-          <NavLink href="/NormalUser/RecordDiet"  className="ms-auto">飲食</NavLink>
-          <NavLink href="/NormalUser/Search" className="ms-auto">探索</NavLink>
-          <NavLink href="/NormalUser/PersonalInformation"  className="ms-auto">個人資訊</NavLink>
+          <NavLink href="/BloodPressure" className="ms-auto">血壓</NavLink>
+          <NavLink href="/BloodSugar" className="ms-auto">血糖</NavLink>
+          <NavLink href="/RecordDiet"  className="ms-auto">飲食</NavLink>
+          <NavLink href="/Search" className="ms-auto">探索</NavLink>
+          <NavLink href="/PersonalInformation"  className="ms-auto">個人資訊</NavLink>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
