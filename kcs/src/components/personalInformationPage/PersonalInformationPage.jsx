@@ -13,6 +13,7 @@ import BloodPressure_3 from '../../asserts/PersonalInformationPage/BloodPressure
 
 function PersonalInformationPage(props) {
   const ref = useRef();
+  const [userName, setUserName] = useState("味道洪");
   const [userAge, setUserAge] = useState("");
   const [userSex, setUserSex] = useState("");
   const [userBloodPressureFirst, setUserBloodPressureFirst] = useState("");
@@ -33,6 +34,7 @@ function PersonalInformationPage(props) {
     try{
         const data = await axios.get("http://localhost:5000/api/getUserInfo/" + userHash); 
         const userInfo = data['data'];
+        setUserName(userInfo['name'])
         setUserAge(userInfo['age']);
         setUserSex(userInfo['sex']);
         setUserBloodPressureFirst(userInfo['bloodPressureFirst']);
@@ -60,14 +62,14 @@ function PersonalInformationPage(props) {
             <div className="title_img">
               <img src={ Individual } alt=""></img>
             </div>
-            <span>個人資訊</span>
+            <span>{ userName }</span>
           </div>
           <div className="des">
             <div className="vertical_line"></div>
             <div className="des_list">
               <div className="information_list">
                 <p>{ userAge }歲</p>
-                <p>{ userSex }</p>
+                <p>{ userSex }性</p>
               </div>
               <div className="status_list">
                 <p className="blood_suger">糖尿病</p>

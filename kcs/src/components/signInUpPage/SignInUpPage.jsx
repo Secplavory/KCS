@@ -33,6 +33,7 @@ function SignInUpPage(props) {
     setRegisterUserPassword(userPass);
   }
   const loginUser = async () =>{
+    navigate('/PersonalInformation');
     if(loginUserPhone !== '' && loginUserPassword !== ''){
       let loginUserData = {
         'phoneNumber': loginUserPhone,
@@ -97,7 +98,7 @@ function SignInUpPage(props) {
                   </div>
                   <div className="group">
                     <label htmlFor="sign-in-pass" className="label">Password</label>
-                    <input id="sign-in-pass" type="password" className="input" data-type="password" onChange={ loginUserPasswordChangeEvent }/>
+                    <input id="sign-in-pass" type="password" className="input" data-type="password" autoComplete="off" onChange={ loginUserPasswordChangeEvent }/>
                   </div>
                   <div className="group">
                     <button className="button" onClick={ loginUser }>Sign In</button>
@@ -115,7 +116,7 @@ function SignInUpPage(props) {
                   </div>
                   <div className="group">
                     <label htmlFor="sign-up-pass" className="label">Password</label>
-                    <input id="sign-up-pass" type="password" className="input" data-type="password" onChange={ registerUserPasswordChangeEvent } />
+                    <input id="sign-up-pass" type="password" className="input" autoComplete="off" data-type="password" onChange={ registerUserPasswordChangeEvent } />
                   </div>
                   <div className="group">
                     <button className="button" onClick={ registerUser }>Sign Up</button>

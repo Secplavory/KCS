@@ -1,7 +1,7 @@
 #BS {
     position: relative;
     top: -5px;
-    padding: 5px 10px;
+    padding: 5px 10px 50px 10px;
     height: 100vh;
     background-color: whitesmoke;
     overflow-y: auto;
@@ -140,7 +140,7 @@
         .history_table {
             padding: 0;
             table {
-                height: 575px;
+                height: 535px;
                 position: relative;
                 margin: 15px 0;
                 text-align: center;

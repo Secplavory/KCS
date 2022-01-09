@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
  Navbar,
- Nav,
- NavLink
+//  Nav,
+//  NavLink
 } from "react-bootstrap"; //bootstrap導入
 import './KCSNavbar.scss';
 // icon導入
@@ -32,7 +32,7 @@ export default function KCSNavbar(props) {
   }, [location])
 
   return (
-    <Navbar id={props.id} fixed="sticky" expand="lg" className={ navbarClassName }>
+    <Navbar id={props.id} fixed="sticky" expand="true" className={ navbarClassName }>
       <div className="left">
         <button className="back" onClick={() => navigate(-1)}>
           <AiOutlineArrowLeft />
@@ -51,7 +51,7 @@ export default function KCSNavbar(props) {
           </a>
           <Navbar.Toggle className="ml-auto" aria-controls="basic-navbar-nav" />
         </div>
-      <Navbar.Collapse id="basic-navbar-nav">
+      {/* <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="container-fluid">
           <NavLink href="/BloodPressure" className="ms-auto">血壓</NavLink>
           <NavLink href="/BloodSugar" className="ms-auto">血糖</NavLink>
@@ -59,7 +59,7 @@ export default function KCSNavbar(props) {
           <NavLink href="/Search" className="ms-auto">探索</NavLink>
           <NavLink href="/PersonalInformation"  className="ms-auto">個人資訊</NavLink>
         </Nav>
-      </Navbar.Collapse>
+      </Navbar.Collapse> */}
     </Navbar>
   );
 }
