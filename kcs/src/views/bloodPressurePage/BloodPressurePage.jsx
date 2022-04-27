@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom';
 import './BloodPressurePage.scss';
 
 import { AiFillCaretDown } from "react-icons/ai";
@@ -9,12 +8,6 @@ import BloodPressure from "../../asserts/BloodPressurePage/BloodPressure.png"
 function BloodPressurePage() {
     const [changeDate, setChangeDate] = useState("");
     const [modifyRow, setModifyRow] = useState();
-    const location = useLocation();
-    useEffect(() => {
-        if(location.pathname.includes("BloodPressure")){
-            console.log("BloodPressurePage")
-        }
-    }, [location]);
     const submitRecord = ()=>{
         var input_first = document.getElementById('input_first');
         var input_second = document.getElementById('input_second');
@@ -251,22 +244,20 @@ function BloodPressurePage() {
                             <p>時間</p>
                             <span id="date">{ changeDate }</span>
                             <input type="date" onChange={ (e)=>{ setDate(e) } }></input>
+                            <hr className="date_hr" />
                             <AiFillCaretDown />
                         </div>
                         <div className="detail_item">
                             <p>收縮壓</p>
                             <input id="modify_first" type="text" maxLength="3"></input>
-                            <AiFillCaretDown />
                         </div>
                         <div className="detail_item">
                             <p>舒張壓</p>
                             <input id="modify_second" type="text" maxLength="2"></input>
-                            <AiFillCaretDown />
                         </div>
                         <div className="detail_item">
                             <p>心律</p>
                             <input id="modify_third" type="text" maxLength="2"></input>
-                            <AiFillCaretDown />
                         </div>
                     </div>
                     <div className="buttons">

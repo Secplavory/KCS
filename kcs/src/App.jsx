@@ -2,14 +2,14 @@ import {BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-do
 import React from "react";
 import { useState } from "react";
 import './App.scss';
-import KCSNavbar from './components/KCSNavbar.jsx'
-import KCSFooter from './components/KCSFooter.jsx'
-import SignInUpPage from './components/signInUpPage/SignInUpPage.jsx'
-import BloodPressurePage from './components/bloodPressurePage/BloodPressurePage.jsx'
-import BloodSugarPage from './components/bloodSugarPage/BloodSugarPage.jsx'
-import RecordDietPage from './components/recordDietPage/RecordDietPage.jsx'
-import Search from './components/searchPage/SearchPage.jsx'
-import PersonalInformationPage from './components/personalInformationPage/PersonalInformationPage.jsx'
+import KCSNavbar from './components/KCSNavbar/KCSNavbar.jsx'
+import KCSFooter from './components/KCSFooter/KCSFooter.jsx'
+import SignInUpPage from './views/signInUpPage/SignInUpPage.jsx'
+import BloodPressurePage from './views/bloodPressurePage/BloodPressurePage.jsx'
+import BloodSugarPage from './views/bloodSugarPage/BloodSugarPage.jsx'
+import RecordDietPage from './views/recordDietPage/RecordDietPage.jsx'
+import Search from './views/searchPage/SearchPage.jsx'
+import PersonalInformationPage from './views/personalInformationPage/PersonalInformationPage.jsx'
 
 function App() {
   const [userHash, setUserHash] = useState("");
@@ -29,8 +29,8 @@ function App() {
             <Route path="/Search" element={ <Search /> }/>
             <Route path="/PersonalInformation" element={ <PersonalInformationPage userHash={ userHash } /> } />
         </Routes>
-        <KCSFooter id="Footer" />
       </Router>
+        <KCSFooter id="Footer" />
     </div>
   );
 }

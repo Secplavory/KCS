@@ -1,24 +1,22 @@
 import React from "react";
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom';
 import './KCSFooter.scss';
 //  import icon & img
-import BloodPressure from '../asserts/Footer/BloodPressure.png'
-import BloodSugar from '../asserts/Footer/BloodSugar.png'
-import Diet from '../asserts/Footer/Diet.png'
-import Search from '../asserts/Footer/Search.png'
-import Individual from '../asserts/Footer/Individual.png'
+import BloodPressure from '../../asserts/Footer/BloodPressure.webp'
+import BloodSugar from '../../asserts/Footer/BloodSugar.webp'
+import Diet from '../../asserts/Footer/Diet.webp'
+import Search from '../../asserts/Footer/Search.webp'
+import Individual from '../../asserts/Footer/Individual.webp'
 
 export default function KCSFooter(props) {
-  const [footerClassName, setFooterClassName] = useState("nonFooter");
-  const location = useLocation();
+  const [footerClassName, setFooterClassName] = useState("Footer");
   useEffect(() => {
-    if(location.pathname.includes("SignInUp")){
+    if(window.location.href.includes("SignInUp")){
       setFooterClassName("nonFooter");
     }else{
       setFooterClassName("");
     }
-  }, [location])
+  }, [])
   return (
     <footer id={ props.id } className={ footerClassName }>
       <div className="footer_row">

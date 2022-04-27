@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom';
 import './BloodSugarPage.scss';
 
 import { AiFillCaretDown } from "react-icons/ai";
@@ -9,12 +8,6 @@ import BloodSugar from "../../asserts/BloodSugarPage/BloodSugar.png"
 function BloodSugarPage() {
     const [changeDate, setChangeDate] = useState("");
     const [modifyRow, setModifyRow] = useState();
-    const location = useLocation();
-    useEffect(() => {
-        if(location.pathname.includes("BloodSugar")){
-            console.log("BloodSugarPage")
-        }
-    }, [location]);
     const submitRecord = ()=>{
         var input_first = document.getElementById('input_first');
         var inputTime = document.getElementById('inputTime');
@@ -235,6 +228,7 @@ function BloodSugarPage() {
                             <p>時間</p>
                             <span id="date">{ changeDate }</span>
                             <input type="date" onChange={ (e)=>{ setDate(e) } }></input>
+                            <hr className="date_hr" />
                             <AiFillCaretDown />
                         </div>
                         <div className="detail_item">
