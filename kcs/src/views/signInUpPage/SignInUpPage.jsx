@@ -46,7 +46,7 @@ function SignInUpPage(props) {
         let loginPackage =get['data'];
         console.log(loginPackage)
         if (loginPackage['status'] === "0000"){
-          props.setUserHash("0000");
+          props.setUserId("1");
           navigate('/PersonalInformation');
         }else{
           alert("電話或密碼錯誤！")
@@ -55,7 +55,7 @@ function SignInUpPage(props) {
         alert(error);
       }
     }else{
-      alert("請輸入電話和密碼！")
+      // alert("請輸入電話和密碼！")
     }
   }
   const registerUser = async () =>{

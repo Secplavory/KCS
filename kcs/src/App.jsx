@@ -12,9 +12,9 @@ import Search from './views/searchPage/SearchPage.jsx'
 import PersonalInformationPage from './views/personalInformationPage/PersonalInformationPage.jsx'
 
 function App() {
-  const [userHash, setUserHash] = useState("");
-  const loginSetUserHash = (userHashCode) =>{
-    setUserHash(userHashCode);
+  const [userId, setUserId] = useState("1");
+  const loginSetUserId = (userHashId) =>{
+    setUserId(userHashId);
   }
   return (
     <div className="App">
@@ -22,12 +22,12 @@ function App() {
         <KCSNavbar id="Navbar" />
         <Routes>
             <Route path="/" element={<Navigate replace to="/SignInUp" />} />
-            <Route path="/SignInUp" element={ <SignInUpPage setUserHash={ loginSetUserHash } /> } />
+            <Route path="/SignInUp" element={ <SignInUpPage setUserId={ loginSetUserId } /> } />
             <Route path="/BloodPressure" element={ <BloodPressurePage /> }/>
             <Route path="/BloodSugar" element={ <BloodSugarPage /> }/>
             <Route path="/RecordDiet" element={ <RecordDietPage /> }/>
             <Route path="/Search" element={ <Search /> }/>
-            <Route path="/PersonalInformation" element={ <PersonalInformationPage userHash={ userHash } /> } />
+            <Route path="/PersonalInformation" element={ <PersonalInformationPage userId={ userId } /> } />
         </Routes>
       </Router>
         <KCSFooter id="Footer" />
