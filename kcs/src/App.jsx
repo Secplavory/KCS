@@ -29,8 +29,8 @@ function App() {
             <Route path="/Search" element={ <Search /> }/>
             <Route path="/PersonalInformation" element={ <PersonalInformationPage userId={ userId } /> } />
         </Routes>
-      </Router>
         <KCSFooter id="Footer" />
+      </Router>
     </div>
   );
 }
