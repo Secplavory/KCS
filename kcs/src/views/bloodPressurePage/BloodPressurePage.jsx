@@ -40,9 +40,9 @@ function BloodPressurePage(props) {
     }
     const submitRecord = async (e) => {
         e.preventDefault();
-        var input_first = document.getElementById('input_first').value;
-        var input_second = document.getElementById('input_second').value;
-        var input_third = document.getElementById('input_third').value;
+        let input_first = document.getElementById('input_first').value;
+        let input_second = document.getElementById('input_second').value;
+        let input_third = document.getElementById('input_third').value;
         if (input_first !== '' && input_second !== '' && input_third !== '') {
             alert("送出");
             await saveRecord(input_first, input_second, input_third);
@@ -54,13 +54,13 @@ function BloodPressurePage(props) {
         }
     };
     const openModifyPage = (e) => {
-        var modify_page = document.querySelector(".BP_modify_record");
+        let modify_page = document.querySelector(".BP_modify_record");
         modify_page.classList.add("show");
         setModifyRow(e.target.parentNode);
-        var tr_Tds = e.target.parentNode.children;
-        var modify_first = document.getElementById("modify_first");
-        var modify_second = document.getElementById("modify_second");
-        var modify_third = document.getElementById("modify_third");
+        let tr_Tds = e.target.parentNode.children;
+        let modify_first = document.getElementById("modify_first");
+        let modify_second = document.getElementById("modify_second");
+        let modify_third = document.getElementById("modify_third");
         setChangeDate(tr_Tds[0].textContent);
         modify_first.value = tr_Tds[2].textContent;
         modify_second.value = tr_Tds[3].textContent;
@@ -68,32 +68,32 @@ function BloodPressurePage(props) {
     }
     const deleteRecord = () => {
         modifyRow.remove();
-        var modify_page = document.querySelector(".BP_modify_record");
+        let modify_page = document.querySelector(".BP_modify_record");
         modify_page.classList.remove("show");
     }
     const saveModify = () => {
-        var tr_Tds = modifyRow.children;
-        var modify_first = document.getElementById("modify_first");
-        var modify_second = document.getElementById("modify_second");
-        var modify_third = document.getElementById("modify_third");
-        var date = document.getElementById("date");
+        let tr_Tds = modifyRow.children;
+        let modify_first = document.getElementById("modify_first");
+        let modify_second = document.getElementById("modify_second");
+        let modify_third = document.getElementById("modify_third");
+        let date = document.getElementById("date");
         tr_Tds[0].textContent = date.textContent;
         tr_Tds[2].textContent = modify_first.value;
         tr_Tds[3].textContent = modify_second.value;
         tr_Tds[4].textContent = modify_third.value;
-        var modify_page = document.querySelector(".BP_modify_record");
+        let modify_page = document.querySelector(".BP_modify_record");
         modify_page.classList.remove("show");
     }
     const setDate = (e) => {
-        var time = e.target.value
-        var update_y = time.slice(0, 4);
-        var update_m = time.slice(5, 7);
-        var update_d = time.slice(8, 10);
-        var updateTime = update_y + " " + update_m + "/" + update_d;
+        let time = e.target.value
+        let update_y = time.slice(0, 4);
+        let update_m = time.slice(5, 7);
+        let update_d = time.slice(8, 10);
+        let updateTime = update_y + " " + update_m + "/" + update_d;
         setChangeDate(updateTime);
     }
     function filterButton(e) {
-        var choiceButton = document.querySelectorAll(".filter_button button");
+        let choiceButton = document.querySelectorAll(".filter_button button");
         choiceButton.forEach(ele => {
             ele.classList.remove("active");
         });

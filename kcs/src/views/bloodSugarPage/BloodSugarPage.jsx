@@ -9,7 +9,7 @@ import BloodSugar from "../../asserts/BloodSugarPage/BloodSugar.png"
 function BloodSugarPage(props) {
     const [userBloodSugarData, setUserBloodSugarData] = useState([]);
     const [changeDate, setChangeDate] = useState("");
-    const [modifyRow, setModifyRow] = useState();
+    const [modifySugarId, setModifySugarId] = useState("");
     const getUserBloodSugar = useCallback(async () => {
         try {
             const result = appAxios.get(`/getUserBloodSugar?userId=${props.userId}&page=1&limit=15`)
@@ -30,61 +30,81 @@ function BloodSugarPage(props) {
                 "userId": props.userId,
                 "timePeriod": inputTime,
             }
-            await appAxios.post(`/bloodSugar`, saveRecordPayload)
+            await appAxios.post(`/bloodSugar`, saveRecordPayload);
             await getUserBloodSugar();
         } catch (error) {
             console.log("Server Error")
         }
     }
     const submitRecord = async () => {
-        var input_first = document.getElementById('input_first').value;
-        var inputTime = document.getElementById('inputTime').value;
+        let input_first = document.getElementById('input_first').value;
+        let inputTime = document.getElementById('inputTime').value;
         if (input_first !== '' && inputTime !== 'none') {
             alert("送出");
             await saveRecord(input_first, inputTime);
-            input_first = "";
-            inputTime = "";
+            document.getElementById('input_first').value = "";
+            document.getElementById('inputTime').value = "早餐前";
+
         } else {
             alert("請輸入資料！");
         }
     };
-    const openModifyPage = (e) => {
-        var modify_page = document.querySelector(".BS_modify_record");
+    const openModifyPage = (e, sugarId) => {
+        setModifySugarId(sugarId);
+        let modify_page = document.querySelector(".BS_modify_record");
         modify_page.classList.add("show");
-        setModifyRow(e.target.parentNode);
-        var tr_Tds = e.target.parentNode.children;
-        var modifyTime = document.getElementById("modifyTime");
-        var modify_first = document.getElementById("modify_first");
+        let tr_Tds = e.target.parentNode.children;
+        let modifyTime = document.getElementById("modifyTime");
+        let modify_first = document.getElementById("modify_first");
         setChangeDate(tr_Tds[0].textContent);
         modifyTime.value = tr_Tds[2].textContent;
         modify_first.value = tr_Tds[3].textContent;
     }
-    const deleteRecord = () => {
-        modifyRow.remove();
-        var modify_page = document.querySelector(".BS_modify_record");
-        modify_page.classList.remove("show");
+    const deleteRecord = async () => {
+        try {
+            const deleteRecordPayload = {
+                "sugarId": modifySugarId
+            }
+            setModifySugarId("");
+            await appAxios.delete(`/bloodSugar`, { data: deleteRecordPayload });
+            await getUserBloodSugar();
+            let modify_page = document.querySelector(".BS_modify_record");
+            modify_page.classList.remove("show");
+        } catch (error) {
+            console.log("Server Error");
+        }
     }
-    const saveModify = () => {
-        var tr_Tds = modifyRow.children;
-        var modifyTime = document.getElementById("modifyTime");
-        var modify_first = document.getElementById("modify_first");
-        var date = document.getElementById("date");
-        tr_Tds[0].textContent = date.textContent;
-        tr_Tds[2].textContent = modifyTime.value;
-        tr_Tds[3].textContent = modify_first.value;
-        var modify_page = document.querySelector(".BS_modify_record");
-        modify_page.classList.remove("show");
+    const saveModify = async () => {
+        try {
+            let modifyTime = document.getElementById("modifyTime").value;
+            let modify_first = document.getElementById("modify_first").value;
+            let date = document.getElementById("date").textContent.trim();
+            const targetData = userBloodSugarData.filter(a => a.sugarId === modifySugarId)[0];
+            const modifyRecordPayload = {
+                "sugar": modify_first,
+                "datetime": `${date} ${targetData.datetime.substring(11)}`,
+                "sugarId": modifySugarId,
+                "timePeriod": modifyTime
+            }
+            await appAxios.put(`/bloodSugar`, modifyRecordPayload);
+            await getUserBloodSugar();
+            setModifySugarId("");
+            let modify_page = document.querySelector(".BS_modify_record");
+            modify_page.classList.remove("show");
+        } catch (error) {
+            console.log("Server Error");
+        }
     }
     const setDate = (e) => {
-        var time = e.target.value
-        var update_y = time.slice(0, 4);
-        var update_m = time.slice(5, 7);
-        var update_d = time.slice(8, 10);
-        var updateTime = update_y + " " + update_m + "/" + update_d;
+        let time = e.target.value
+        let update_y = time.slice(0, 4);
+        let update_m = time.slice(5, 7);
+        let update_d = time.slice(8, 10);
+        let updateTime = update_y + " " + update_m + "/" + update_d;
         setChangeDate(updateTime);
     }
     function filterButton(e) {
-        var choiceButton = document.querySelectorAll(".filter_button button");
+        let choiceButton = document.querySelectorAll(".filter_button button");
         choiceButton.forEach(ele => {
             ele.classList.remove("active");
         });
@@ -160,10 +180,10 @@ function BloodSugarPage(props) {
                                 <th>血糖值</th>
                             </tr>
                         </thead>
-                        <tbody onClick={(e) => { openModifyPage(e) }}>
+                        <tbody>
                             {userBloodSugarData.map(Element => (
-                                <tr key={Element.sugarId}>
-                                    <td>{Element.datetime.substring(0, 10)}</td>
+                                <tr key={Element.sugarId} onClick={(e) => { openModifyPage(e, Element.sugarId) }}>
+                                    <td>&nbsp;{Element.datetime.substring(0, 10)}</td>
                                     <td>{Element.datetime.substring(11, 16)}</td>
                                     <td>{Element.timePeriod}</td>
                                     <td>{Element.sugar}</td>
