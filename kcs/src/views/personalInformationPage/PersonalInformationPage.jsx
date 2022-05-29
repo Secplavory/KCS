@@ -35,7 +35,6 @@ function PersonalInformationPage(props) {
     try {
       const result = appAxios.get(`/getUserBasicInfo?userId=${userId}`)
       const userInfo = (await result).data
-      console.log(userInfo)
       let userBirthday = new Date(userInfo.birthday.substring(0, 10).replace(/-/g, "/"));
       let d = new Date();
       let userAge = d.getFullYear() - userBirthday.getFullYear() - (((d.getMonth() < userBirthday.getMonth() || d.getMonth() === userBirthday.getMonth()) && d.getDate() < userBirthday.getDate()) ? 1 : 0);
@@ -47,6 +46,7 @@ function PersonalInformationPage(props) {
       setUserBloodPressureThird(userInfo.recentSBP);
       setUserBloodSugar(userInfo.recentSugar);
       setDiseaseTypeList(userInfo.diseaseTypeList);
+      console.log(userInfo.diseaseTypeList)
     }
     catch (error) {
       // alert("TEST MODE!!");    

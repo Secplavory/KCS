@@ -23,9 +23,9 @@ function App() {
         <Routes>
             <Route path="/" element={<Navigate replace to="/SignInUp" />} />
             <Route path="/SignInUp" element={ <SignInUpPage setUserId={ loginSetUserId } /> } />
-            <Route path="/BloodPressure" element={ <BloodPressurePage /> }/>
-            <Route path="/BloodSugar" element={ <BloodSugarPage /> }/>
-            <Route path="/RecordDiet" element={ <RecordDietPage /> }/>
+            <Route path="/BloodPressure" element={ <BloodPressurePage userId={ userId } /> }/>
+            <Route path="/BloodSugar" element={ <BloodSugarPage userId={ userId } /> }/>
+            <Route path="/RecordDiet" element={ <RecordDietPage userId={ userId } /> }/>
             <Route path="/Search" element={ <Search /> }/>
             <Route path="/PersonalInformation" element={ <PersonalInformationPage userId={ userId } /> } />
         </Routes>

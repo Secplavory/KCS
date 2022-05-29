@@ -1,25 +1,54 @@
 import React from "react";
-import { useState } from 'react'
+import appAxios from "../../appAxios.js"
+import { useState, useEffect, useCallback } from 'react'
 import './BloodSugarPage.scss';
 
 import { AiFillCaretDown } from "react-icons/ai";
 import BloodSugar from "../../asserts/BloodSugarPage/BloodSugar.png"
 
-function BloodSugarPage() {
+function BloodSugarPage(props) {
+    const [userBloodSugarData, setUserBloodSugarData] = useState([]);
     const [changeDate, setChangeDate] = useState("");
     const [modifyRow, setModifyRow] = useState();
-    const submitRecord = ()=>{
-        var input_first = document.getElementById('input_first');
-        var inputTime = document.getElementById('inputTime');
-        if( input_first.value !== '' && inputTime.value !== 'none'){
+    const getUserBloodSugar = useCallback(async () => {
+        try {
+            const result = appAxios.get(`/getUserBloodSugar?userId=${props.userId}&page=1&limit=15`)
+            setUserBloodSugarData((await result).data.bloodSugarList)
+        } catch (error) {
+            console.log("Server Error")
+        }
+    }, [props, setUserBloodSugarData]);
+    useEffect(() => {
+        getUserBloodSugar();
+    }, [getUserBloodSugar]);
+    const saveRecord = async (input_first, inputTime) => {
+        let currentDateTime = new Date().toLocaleString('zh-TW', { hour12: false });
+        try {
+            const saveRecordPayload = {
+                "sugar": input_first,
+                "datetime": currentDateTime,
+                "userId": props.userId,
+                "timePeriod": inputTime,
+            }
+            await appAxios.post(`/bloodSugar`, saveRecordPayload)
+            await getUserBloodSugar();
+        } catch (error) {
+            console.log("Server Error")
+        }
+    }
+    const submitRecord = async () => {
+        var input_first = document.getElementById('input_first').value;
+        var inputTime = document.getElementById('inputTime').value;
+        if (input_first !== '' && inputTime !== 'none') {
             alert("送出");
-            input_first.value = "";
-            inputTime.value = "";
-        }else{
+            await saveRecord(input_first, inputTime);
+            input_first = "";
+            inputTime = "";
+        } else {
             alert("請輸入資料！");
         }
     };
-    const openModifyPage = (e)=>{
+    const openModifyPage = (e) => {
         var modify_page = document.querySelector(".BS_modify_record");
         modify_page.classList.add("show");
         setModifyRow(e.target.parentNode);
@@ -30,12 +59,12 @@ function BloodSugarPage() {
         modifyTime.value = tr_Tds[2].textContent;
         modify_first.value = tr_Tds[3].textContent;
     }
-    const deleteRecord = ()=>{
+    const deleteRecord = () => {
         modifyRow.remove();
         var modify_page = document.querySelector(".BS_modify_record");
         modify_page.classList.remove("show");
     }
-    const saveModify = ()=>{
+    const saveModify = () => {
         var tr_Tds = modifyRow.children;
         var modifyTime = document.getElementById("modifyTime");
         var modify_first = document.getElementById("modify_first");
@@ -46,17 +75,17 @@ function BloodSugarPage() {
         var modify_page = document.querySelector(".BS_modify_record");
         modify_page.classList.remove("show");
     }
-    const setDate = (e)=>{
+    const setDate = (e) => {
         var time = e.target.value
-        var update_y = time.slice(0,4);
-        var update_m = time.slice(5,7);
-        var update_d = time.slice(8,10);
+        var update_y = time.slice(0, 4);
+        var update_m = time.slice(5, 7);
+        var update_d = time.slice(8, 10);
         var updateTime = update_y + " " + update_m + "/" + update_d;
         setChangeDate(updateTime);
     }
-    function filterButton(e){
+    function filterButton(e) {
         var choiceButton = document.querySelectorAll(".filter_button button");
-        choiceButton.forEach(ele=>{
+        choiceButton.forEach(ele => {
             ele.classList.remove("active");
         });
         e.target.classList.add("active");
@@ -68,7 +97,7 @@ function BloodSugarPage() {
             <div className="BS_record">
                 <div className="title">
                     <div className="title_img">
-                        <img src={ BloodSugar } alt=""></img>
+                        <img src={BloodSugar} alt=""></img>
                     </div>
                     <span>血糖紀錄</span>
                 </div>
@@ -93,13 +122,13 @@ function BloodSugarPage() {
             </div>
             <div className="BS_record_button">
                 <div className="submit_button">
-                        <button onClick={ submitRecord }>確認送出</button>
+                    <button onClick={submitRecord}>確認送出</button>
                 </div>
             </div>
             <div className="BS_history">
                 <div className="title">
                     <div className="title_img">
-                        <img src={ BloodSugar } alt=""></img>
+                        <img src={BloodSugar} alt=""></img>
                     </div>
                     <span>血糖歷史</span>
                 </div>
@@ -117,7 +146,7 @@ function BloodSugarPage() {
             <div className="BS_history_browse">
                 <div className="title">
                     <div className="title_img">
-                        <img src={ BloodSugar } alt=""></img>
+                        <img src={BloodSugar} alt=""></img>
                     </div>
                     <span>歷史瀏覽</span>
                 </div>
@@ -131,91 +160,21 @@ function BloodSugarPage() {
                                 <th>血糖值</th>
                             </tr>
                         </thead>
-                        <tbody onClick={ (e)=>{openModifyPage(e)} }>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐前</td>
-                                <td>89</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐後</td>
-                                <td>140</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐前</td>
-                                <td>89</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐前</td>
-                                <td>89</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐後</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐前</td>
-                                <td>89</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐前</td>
-                                <td>89</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐後</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐前</td>
-                                <td>89</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐前</td>
-                                <td>89</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐後</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐後</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>2020 10/05</td>
-                                <td>12：40</td>
-                                <td>午餐前</td>
-                                <td>89</td>
-                            </tr>
+                        <tbody onClick={(e) => { openModifyPage(e) }}>
+                            {userBloodSugarData.map(Element => (
+                                <tr key={Element.sugarId}>
+                                    <td>{Element.datetime.substring(0, 10)}</td>
+                                    <td>{Element.datetime.substring(11, 16)}</td>
+                                    <td>{Element.timePeriod}</td>
+                                    <td>{Element.sugar}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
                 <div className="splitter">
                 </div>
-            </div>   
+            </div>
             <div className="BS_modify_record">
                 <div className="record_detail">
                     <div className="modify_title">
@@ -226,8 +185,8 @@ function BloodSugarPage() {
                     <div className="detail">
                         <div className="detail_item">
                             <p>時間</p>
-                            <span id="date">{ changeDate }</span>
-                            <input type="date" onChange={ (e)=>{ setDate(e) } }></input>
+                            <span id="date">{changeDate}</span>
+                            <input type="date" onChange={(e) => { setDate(e) }}></input>
                             <hr className="date_hr" />
                             <AiFillCaretDown />
                         </div>
@@ -248,8 +207,8 @@ function BloodSugarPage() {
                         </div>
                     </div>
                     <div className="buttons">
-                        <button className="delete" onClick={ deleteRecord }>刪除此資料</button>
-                        <button className="complete" onClick={ saveModify }>修改完成</button>
+                        <button className="delete" onClick={deleteRecord}>刪除此資料</button>
+                        <button className="complete" onClick={saveModify}>修改完成</button>
                     </div>
                 </div>
             </div>
