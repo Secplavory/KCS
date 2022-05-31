@@ -26,7 +26,9 @@ function RecordDietPage(props) {
             setRDHeight();
         }
         window.addEventListener('resize', setRDHeight);
-        props.setIsShowing(false);
+        setTimeout(() => {
+            props.setIsShowing(false)
+        }, 500);
     }, [props, location, setRDHeight])
     const updateTime = (time) => {
         var update_y = time.slice(0, 4);

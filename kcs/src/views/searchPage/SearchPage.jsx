@@ -31,7 +31,9 @@ function SearchPage(props) {
             handleScroll();
         }
         getAllUserTwitter();
-        props.setIsShowing(false);
+        setTimeout(() => {
+            props.setIsShowing(false)
+        }, 1000);
     }, [props, location, handleScroll, getAllUserTwitter]);
     console.log(allUserTwitterData)
     const filterButton = (e) => {

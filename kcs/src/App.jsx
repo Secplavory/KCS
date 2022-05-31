@@ -19,7 +19,6 @@ function App() {
   }
   const [userId, setUserId] = useState(getUserId());
   const [isShowing, setIsShowing] = useState(true);
-  console.log(isShowing)
   const loginSetUserId = (userHashId) => {
     window.localStorage.setItem('userId', userHashId)
     setUserId(userHashId);
