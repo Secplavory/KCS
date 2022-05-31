@@ -44,7 +44,6 @@ function BloodSugarPage(props) {
             await saveRecord(input_first, inputTime);
             document.getElementById('input_first').value = "";
             document.getElementById('inputTime').value = "早餐前";
-
         } else {
             alert("請輸入資料！");
         }

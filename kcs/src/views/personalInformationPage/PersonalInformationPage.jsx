@@ -21,6 +21,7 @@ function PersonalInformationPage(props) {
   const [userBloodPressureThird, setUserBloodPressureThird] = useState("");
   const [userBloodSugar, setUserBloodSugar] = useState("");
   const [userDiseaseTypeList, setDiseaseTypeList] = useState([]);
+  const [userTwitterData, setUserTwitterData] = useState([]);
   const handleScroll = useCallback(() => {
     var bottom = document.querySelector("#PI .bottom");
     var footer = document.querySelector("#Footer");
@@ -50,14 +51,24 @@ function PersonalInformationPage(props) {
       alert("Server Error!");
     }
   }, [props.userId]);
+  const getUserTwitter = useCallback(async () => {
+    try {
+      const result = appAxios.get(`/getUserTwitter?userId=${props.userId}`);
+      setUserTwitterData((await result).data['twitterList'])
+    }
+    catch (error) {
+      alert("Server Error!");
+    }
+  }, [props.userId]);
 
   useEffect(() => {
     const div = ref.current;
     getUserInfo();
+    getUserTwitter();
     div.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
-  }, [getUserInfo, handleScroll]);
-
+  }, [getUserInfo, getUserTwitter, handleScroll]);
+  console.log(userTwitterData)
   return (
     <div id="PI">
       <div className="top">
@@ -139,6 +150,11 @@ function PersonalInformationPage(props) {
       </div>
       <div className="bottom" ref={ref}>
         <div className="post_area">
+          {userTwitterData.map(Element => (
+            <div className="post" key={Element.twitterId}>
+              <img src={Element.imagesrc} alt="" />
+            </div>
+          ))}
           <div className="post"></div>
           <div className="post"></div>
           <div className="post"></div>
