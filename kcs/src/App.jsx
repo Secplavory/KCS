@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
 import React from "react";
 import { useState } from "react";
 import './App.scss';
@@ -12,8 +12,13 @@ import Search from './views/searchPage/SearchPage.jsx'
 import PersonalInformationPage from './views/personalInformationPage/PersonalInformationPage.jsx'
 
 function App() {
-  const [userId, setUserId] = useState("1");
-  const loginSetUserId = (userHashId) =>{
+  const getUserId = () => {
+    const GlobalUserId = window.localStorage.getItem('userId');
+    return GlobalUserId;
+  }
+  const [userId, setUserId] = useState(getUserId());
+  const loginSetUserId = (userHashId) => {
+    window.localStorage.setItem('userId', userHashId)
     setUserId(userHashId);
   }
   return (
@@ -21,13 +26,13 @@ function App() {
       <Router>
         <KCSNavbar id="Navbar" />
         <Routes>
-            <Route path="/" element={<Navigate replace to="/SignInUp" />} />
-            <Route path="/SignInUp" element={ <SignInUpPage setUserId={ loginSetUserId } /> } />
-            <Route path="/BloodPressure" element={ <BloodPressurePage userId={ userId } /> }/>
-            <Route path="/BloodSugar" element={ <BloodSugarPage userId={ userId } /> }/>
-            <Route path="/RecordDiet" element={ <RecordDietPage userId={ userId } /> }/>
-            <Route path="/Search" element={ <Search /> }/>
-            <Route path="/PersonalInformation" element={ <PersonalInformationPage userId={ userId } /> } />
+          <Route path="/" element={<Navigate replace to="/SignInUp" />} />
+          <Route path="/SignInUp" element={<SignInUpPage setUserId={loginSetUserId} />} />
+          <Route path="/BloodPressure" element={<BloodPressurePage userId={userId} />} />
+          <Route path="/BloodSugar" element={<BloodSugarPage userId={userId} />} />
+          <Route path="/RecordDiet" element={<RecordDietPage userId={userId} />} />
+          <Route path="/Search" element={<Search />} />
+          <Route path="/PersonalInformation" element={<PersonalInformationPage userId={userId} />} />
         </Routes>
         <KCSFooter id="Footer" />
       </Router>

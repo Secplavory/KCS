@@ -27,13 +27,12 @@ function PersonalInformationPage(props) {
     var bottom_y = bottom.getBoundingClientRect().y;
     var viewport_height = window.innerHeight;
     var declare_height = viewport_height - bottom_y - 58;
-    // console.log(declare_height)
     bottom.style.height = declare_height.toString() + "px";
     footer.style.bottom = (0).toString() + "px";;
   }, []);
-  const getUserInfo = useCallback(async (userId) => {
+  const getUserInfo = useCallback(async () => {
     try {
-      const result = appAxios.get(`/getUserBasicInfo?userId=${userId}`)
+      const result = appAxios.get(`/getUserBasicInfo?userId=${props.userId}`)
       const userInfo = (await result).data
       let userBirthday = new Date(userInfo.birthday.substring(0, 10).replace(/-/g, "/"));
       let d = new Date();
@@ -46,19 +45,18 @@ function PersonalInformationPage(props) {
       setUserBloodPressureThird(userInfo.recentSBP);
       setUserBloodSugar(userInfo.recentSugar);
       setDiseaseTypeList(userInfo.diseaseTypeList);
-      console.log(userInfo.diseaseTypeList)
     }
     catch (error) {
-      // alert("TEST MODE!!");    
+      alert("Server Error!");
     }
-  }, []);
+  }, [props.userId]);
 
   useEffect(() => {
     const div = ref.current;
-    getUserInfo(props.userId);
+    getUserInfo();
     div.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
-  }, [props, getUserInfo, handleScroll]);
+  }, [getUserInfo, handleScroll]);
 
   return (
     <div id="PI">
