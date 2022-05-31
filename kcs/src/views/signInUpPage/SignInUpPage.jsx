@@ -1,6 +1,6 @@
 import React from "react";
 import axios from 'axios';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import './SignInUpPage.scss';
 
@@ -11,6 +11,9 @@ function SignInUpPage(props) {
   const [registerUserName, setRegisterUserName] = useState("");
   const [registerUserPhone, setRegisterUserPhone] = useState("");
   const [registerUserPassword, setRegisterUserPassword] = useState("");
+  useEffect(() => {
+    props.setIsShowing(false);
+  }, [props])
   const loginUserPhoneChangeEvent = () => {
     let userPhone = document.getElementById('sign-in-phone').value;
     setLoginUserPhone(userPhone);
@@ -35,6 +38,7 @@ function SignInUpPage(props) {
     if (loginUserPhone !== '' && loginUserPassword !== '') {
       if (loginUserPhone === "1" || loginUserPhone === "2" || loginUserPhone === "3") {
         props.setUserId(loginUserPhone);
+        props.setIsShowing(true);
         navigate('/PersonalInformation');
       } else {
         alert("電話或密碼錯誤！")

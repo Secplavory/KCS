@@ -20,7 +20,8 @@ function BloodPressurePage(props) {
     }, [props, setUserBloodPressureData]);
     useEffect(() => {
         getUserBloodPressure();
-    }, [getUserBloodPressure]);
+        props.setIsShowing(false);
+    }, [props, getUserBloodPressure]);
     const saveRecord = async (input_first, input_second, input_third) => {
         let currentDateTime = new Date().toLocaleString('zh-TW', { hour12: false });
         console.log(currentDateTime, input_first, input_second, input_third)

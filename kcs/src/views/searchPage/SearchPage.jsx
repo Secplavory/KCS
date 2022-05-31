@@ -3,7 +3,7 @@ import appAxios from "../../appAxios.js"
 import { useLocation } from 'react-router-dom';
 import './SearchPage.scss';
 
-function SearchPage() {
+function SearchPage(props) {
     const [allUserTwitterData, setAllUserTwitterData] = useState([]);
     const ref = useRef();
     const location = useLocation();
@@ -31,7 +31,8 @@ function SearchPage() {
             handleScroll();
         }
         getAllUserTwitter();
-    }, [location, handleScroll, getAllUserTwitter]);
+        props.setIsShowing(false);
+    }, [props, location, handleScroll, getAllUserTwitter]);
     console.log(allUserTwitterData)
     const filterButton = (e) => {
         var button_list = document.querySelectorAll("#SP .search_choice");

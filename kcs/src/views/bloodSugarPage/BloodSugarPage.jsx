@@ -20,7 +20,8 @@ function BloodSugarPage(props) {
     }, [props, setUserBloodSugarData]);
     useEffect(() => {
         getUserBloodSugar();
-    }, [getUserBloodSugar]);
+        props.setIsShowing(false);
+    }, [props, getUserBloodSugar]);
     const saveRecord = async (input_first, inputTime) => {
         let currentDateTime = new Date().toLocaleString('zh-TW', { hour12: false });
         try {

@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import './RecordDietPage.scss';
 
 import { BsPlusLg } from "react-icons/bs";
-function RecordDietPage() {
+function RecordDietPage(props) {
     const [time, setTime] = useState("");
     const location = useLocation();
     const navigate = useNavigate();
@@ -26,7 +26,8 @@ function RecordDietPage() {
             setRDHeight();
         }
         window.addEventListener('resize', setRDHeight);
-    }, [location, setRDHeight])
+        props.setIsShowing(false);
+    }, [props, location, setRDHeight])
     const updateTime = (time) => {
         var update_y = time.slice(0, 4);
         var update_m = time.slice(5, 7);

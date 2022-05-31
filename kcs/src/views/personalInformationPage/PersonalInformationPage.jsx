@@ -67,8 +67,8 @@ function PersonalInformationPage(props) {
     getUserTwitter();
     div.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
-  }, [getUserInfo, getUserTwitter, handleScroll]);
-  console.log(userTwitterData)
+    props.setIsShowing(false);
+  }, [props, getUserInfo, getUserTwitter, handleScroll]);
   return (
     <div id="PI">
       <div className="top">
