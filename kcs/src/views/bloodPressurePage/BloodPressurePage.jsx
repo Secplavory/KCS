@@ -9,7 +9,7 @@ import BloodPressure from "../../asserts/BloodPressurePage/BloodPressure.png"
 function BloodPressurePage(props) {
     const [userBloodPressureData, setUserBloodPressureData] = useState([]);
     const [changeDate, setChangeDate] = useState("");
-    const [modifyRow, setModifyRow] = useState();
+    const [modifyPressureId, setModifyPressureId] = useState("");
     const getUserBloodPressure = useCallback(async () => {
         try {
             const result = appAxios.get(`/getUserBloodPressure?userId=${props.userId}&page=1&limit=15`)
@@ -26,16 +26,16 @@ function BloodPressurePage(props) {
     }, [props, getUserBloodPressure]);
     const saveRecord = async (input_first, input_second, input_third) => {
         let currentDateTime = new Date().toLocaleString('zh-TW', { hour12: false });
-        console.log(currentDateTime, input_first, input_second, input_third)
         try {
             const saveRecordPayload = {
                 "sbp": input_first,
                 "dbp": input_second,
                 "map": input_third,
                 "datetime": currentDateTime,
+                "userId": props.userId
             }
-            const result = appAxios.post(`/bloodPressure`, saveRecordPayload)
-            console.log(await (result))
+            await appAxios.post(`/bloodPressure`, saveRecordPayload);
+            await getUserBloodPressure();
         } catch (error) {
             console.log("Server Error")
         }
@@ -48,17 +48,17 @@ function BloodPressurePage(props) {
         if (input_first !== '' && input_second !== '' && input_third !== '') {
             alert("送出");
             await saveRecord(input_first, input_second, input_third);
-            input_first = "";
-            input_second = "";
-            input_third = "";
+            document.getElementById('input_first').value = "";
+            document.getElementById('input_second').value = "";
+            document.getElementById('input_third').value = "";
         } else {
             alert("請確切填寫欄位");
         }
     };
-    const openModifyPage = (e) => {
+    const openModifyPage = (e, pressureId) => {
+        setModifyPressureId(pressureId);
         let modify_page = document.querySelector(".BP_modify_record");
         modify_page.classList.add("show");
-        setModifyRow(e.target.parentNode);
         let tr_Tds = e.target.parentNode.children;
         let modify_first = document.getElementById("modify_first");
         let modify_second = document.getElementById("modify_second");
@@ -68,23 +68,42 @@ function BloodPressurePage(props) {
         modify_second.value = tr_Tds[3].textContent;
         modify_third.value = tr_Tds[4].textContent;
     }
-    const deleteRecord = () => {
-        modifyRow.remove();
-        let modify_page = document.querySelector(".BP_modify_record");
-        modify_page.classList.remove("show");
+    const deleteRecord = async () => {
+        try {
+            const deleteRecordPayload = {
+                "pressureId": modifyPressureId
+            }
+            setModifyPressureId("");
+            await appAxios.delete(`/bloodPressure`, { data: deleteRecordPayload });
+            await getUserBloodPressure();
+            let modify_page = document.querySelector(".BP_modify_record");
+            modify_page.classList.remove("show");
+        } catch (error) {
+            console.log("Server Error");
+        }
     }
-    const saveModify = () => {
-        let tr_Tds = modifyRow.children;
-        let modify_first = document.getElementById("modify_first");
-        let modify_second = document.getElementById("modify_second");
-        let modify_third = document.getElementById("modify_third");
-        let date = document.getElementById("date");
-        tr_Tds[0].textContent = date.textContent;
-        tr_Tds[2].textContent = modify_first.value;
-        tr_Tds[3].textContent = modify_second.value;
-        tr_Tds[4].textContent = modify_third.value;
-        let modify_page = document.querySelector(".BP_modify_record");
-        modify_page.classList.remove("show");
+    const saveModify = async () => {
+        try {
+            let modify_first = document.getElementById("modify_first").value;
+            let modify_second = document.getElementById("modify_second").value;
+            let modify_third = document.getElementById("modify_third").value;
+            let date = document.getElementById("date").textContent.trim();
+            const targetData = userBloodPressureData.filter(a => a.pressureId === modifyPressureId)[0];
+            const modifyRecordPayload = {
+                "sbp": modify_first,
+                "dbp": modify_second,
+                "map": modify_third,
+                "datetime": `${date} ${targetData.datetime.substring(11)}`,
+                "pressureId": modifyPressureId
+            }
+            await appAxios.put(`/bloodPressure`, modifyRecordPayload);
+            await getUserBloodPressure();
+            setModifyPressureId("");
+            let modify_page = document.querySelector(".BP_modify_record");
+            modify_page.classList.remove("show");
+        } catch (error) {
+            console.log("Server Error");
+        }
     }
     const setDate = (e) => {
         let time = e.target.value
@@ -170,9 +189,9 @@ function BloodPressurePage(props) {
                                 <th>心律</th>
                             </tr>
                         </thead>
-                        <tbody onClick={(e) => { openModifyPage(e) }}>
+                        <tbody>
                             {userBloodPressureData.map(Element => (
-                                <tr key={Element.pressureId}>
+                                <tr key={Element.pressureId} onClick={(e) => { openModifyPage(e, Element.pressureId) }}>
                                     <td>{Element.datetime.substring(0, 10)}</td>
                                     <td>{Element.datetime.substring(11, 16)}</td>
                                     <td>{Element.sbp}</td>

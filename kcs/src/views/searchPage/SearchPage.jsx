@@ -35,7 +35,6 @@ function SearchPage(props) {
             props.setIsShowing(false)
         }, 1000);
     }, [props, location, handleScroll, getAllUserTwitter]);
-    console.log(allUserTwitterData)
     const filterButton = (e) => {
         var button_list = document.querySelectorAll("#SP .search_choice");
         button_list.forEach(element => {
