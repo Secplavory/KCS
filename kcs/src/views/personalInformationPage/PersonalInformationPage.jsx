@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { useNavigate } from 'react-router-dom';
 import appAxios from "../../appAxios.js"
 import './PersonalInformationPage.scss';
+
 
 import { AiOutlinePlus } from "react-icons/ai";
 import Individual from '../../asserts/PersonalInformationPage/Individual.png'
@@ -13,6 +15,7 @@ import BloodPressure_3 from '../../asserts/PersonalInformationPage/BloodPressure
 
 function PersonalInformationPage(props) {
   const ref = useRef();
+  const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState("");
   const [userSex, setUserSex] = useState("");
@@ -153,7 +156,7 @@ function PersonalInformationPage(props) {
       <div className="bottom" ref={ref}>
         <div className="post_area">
           {userTwitterData.map(Element => (
-            <div className="post" key={Element.twitterId}>
+            <div className="post" key={Element.twitterId} onClick={()=>{navigate(`/DietDetail/${Element.twitterId}`)}}>
               <img src={Element.imagesrc} alt="" />
             </div>
           ))}

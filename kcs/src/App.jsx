@@ -11,6 +11,7 @@ import BloodSugarPage from './views/bloodSugarPage/BloodSugarPage.jsx'
 import RecordDietPage from './views/recordDietPage/RecordDietPage.jsx'
 import Search from './views/searchPage/SearchPage.jsx'
 import PersonalInformationPage from './views/personalInformationPage/PersonalInformationPage.jsx'
+import DietDetail from './views/dietDetail/DietDetail.jsx'
 
 function App() {
   const getUserId = () => {
@@ -39,6 +40,7 @@ function App() {
           <Route path="/RecordDiet" element={<RecordDietPage userId={userId} setIsShowing={loadingSetIsShowing} />} />
           <Route path="/Search" element={<Search setIsShowing={loadingSetIsShowing} />} />
           <Route path="/PersonalInformation" element={<PersonalInformationPage userId={userId} setIsShowing={loadingSetIsShowing} />} />
+          <Route path="/DietDetail/:id" element={<DietDetail setIsShowing={loadingSetIsShowing} />} />
         </Routes>
         <KCSFooter id="Footer" />
       </Router>
