@@ -207,18 +207,19 @@
       .post {
         width: 100px;
         height: 100px;
-        background-color: rgba($color: #69d4eb, $alpha: 0.5);
+        border-radius: 1rem;
+        background-color: black;
         margin: 2.5px 2.5px;
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
         &:hover {
           cursor: pointer;
         }
         img {
           width: 100%;
-          max-height: 100px;
-          border-radius: 4px;
+          max-height: 100%;
         }
       }
     }

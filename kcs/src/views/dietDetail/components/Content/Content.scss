@@ -1,0 +1,12 @@
+#Content {
+  padding: 1rem 0;
+  .datetime {
+    display: flex;
+    gap: 1rem;
+    color: #969696;
+  }
+  p {
+    font-size: calc(1.325rem + 0.8vw);
+    margin: 1rem 0;
+  }
+}

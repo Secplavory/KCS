@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import appAxios from '../../appAxios.js';
 import './DietDetail.scss';
 
-import UserInfo from './components/UserInfo.jsx';
-import Image from './components/Image.jsx';
-import Content from './components/Content.jsx';
+import UserInfo from './components/UserInfo/UserInfo.jsx';
+import Image from './components/Image/Image.jsx';
+import Content from './components/Content/Content.jsx';
 
 function DietDetail(props) {
   const [UserInfoData, setUserInfoData] = useState(null);
@@ -42,11 +42,11 @@ function DietDetail(props) {
   }, [UserInfoData, TwitterImage, TwitterContent, setIsShowing]);
 
   return (
-    <>
+    <div id="DietDetail">
       <UserInfo {...UserInfoData} />
-      <Image {...TwitterImage} />
       <Content {...TwitterContent} />
-    </>
+      <Image {...TwitterImage} />
+    </div>
   );
 }
 

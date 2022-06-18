@@ -1,66 +1,72 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import appAxios from "../../appAxios.js"
+import appAxios from '../../appAxios.js';
 import './PersonalInformationPage.scss';
 
-
-import { AiOutlinePlus } from "react-icons/ai";
-import Individual from '../../asserts/PersonalInformationPage/Individual.png'
-import BloodPressure from '../../asserts/PersonalInformationPage/BloodPressure.png'
-import BloodSugar from '../../asserts/PersonalInformationPage/BloodSugar.png'
-import ColorfulCircle from '../../asserts/PersonalInformationPage/ColorfulCircle.png'
-import BloodPressure_1 from '../../asserts/PersonalInformationPage/BloodPressure_1.png'
-import BloodPressure_2 from '../../asserts/PersonalInformationPage/BloodPressure_2.png'
-import BloodPressure_3 from '../../asserts/PersonalInformationPage/BloodPressure_3.png'
+import { AiOutlinePlus } from 'react-icons/ai';
+import Individual from '../../asserts/PersonalInformationPage/Individual.png';
+import BloodPressure from '../../asserts/PersonalInformationPage/BloodPressure.png';
+import BloodSugar from '../../asserts/PersonalInformationPage/BloodSugar.png';
+import ColorfulCircle from '../../asserts/PersonalInformationPage/ColorfulCircle.png';
+import BloodPressure_1 from '../../asserts/PersonalInformationPage/BloodPressure_1.png';
+import BloodPressure_2 from '../../asserts/PersonalInformationPage/BloodPressure_2.png';
+import BloodPressure_3 from '../../asserts/PersonalInformationPage/BloodPressure_3.png';
 
 function PersonalInformationPage(props) {
   const ref = useRef();
   const navigate = useNavigate();
-  const [userName, setUserName] = useState("");
-  const [userAge, setUserAge] = useState("");
-  const [userSex, setUserSex] = useState("");
-  const [userBloodPressureFirst, setUserBloodPressureFirst] = useState("");
-  const [userBloodPressureSecond, setUserBloodPressureSecond] = useState("");
-  const [userBloodPressureThird, setUserBloodPressureThird] = useState("");
-  const [userBloodSugar, setUserBloodSugar] = useState("");
+  const [userName, setUserName] = useState('');
+  const [userAge, setUserAge] = useState('');
+  const [userSex, setUserSex] = useState('');
+  const [userBloodPressureFirst, setUserBloodPressureFirst] = useState('');
+  const [userBloodPressureSecond, setUserBloodPressureSecond] = useState('');
+  const [userBloodPressureThird, setUserBloodPressureThird] = useState('');
+  const [userBloodSugar, setUserBloodSugar] = useState('');
   const [userDiseaseTypeList, setDiseaseTypeList] = useState([]);
   const [userTwitterData, setUserTwitterData] = useState([]);
   const handleScroll = useCallback(() => {
-    var bottom = document.querySelector("#PI .bottom");
-    var footer = document.querySelector("#Footer");
+    var bottom = document.querySelector('#PI .bottom');
+    var footer = document.querySelector('#Footer');
     var bottom_y = bottom.getBoundingClientRect().y;
     var viewport_height = window.innerHeight;
     var declare_height = viewport_height - bottom_y - 58;
-    bottom.style.height = declare_height.toString() + "px";
-    footer.style.bottom = (0).toString() + "px";;
+    bottom.style.height = declare_height.toString() + 'px';
+    footer.style.bottom = (0).toString() + 'px';
   }, []);
   const getUserInfo = useCallback(async () => {
     try {
-      const result = appAxios.get(`/getUserBasicInfo?userId=${props.userId}`)
-      const userInfo = (await result).data
-      let userBirthday = new Date(userInfo.birthday.substring(0, 10).replace(/-/g, "/"));
+      const result = appAxios.get(`/getUserBasicInfo?userId=${props.userId}`);
+      const userInfo = (await result).data;
+      let userBirthday = new Date(
+        userInfo.birthday.substring(0, 10).replace(/-/g, '/')
+      );
       let d = new Date();
-      let userAge = d.getFullYear() - userBirthday.getFullYear() - (((d.getMonth() < userBirthday.getMonth() || d.getMonth() === userBirthday.getMonth()) && d.getDate() < userBirthday.getDate()) ? 1 : 0);
-      setUserName(userInfo.name)
+      let userAge =
+        d.getFullYear() -
+        userBirthday.getFullYear() -
+        ((d.getMonth() < userBirthday.getMonth() ||
+          d.getMonth() === userBirthday.getMonth()) &&
+        d.getDate() < userBirthday.getDate()
+          ? 1
+          : 0);
+      setUserName(userInfo.name);
       setUserAge(userAge);
-      setUserSex(userInfo['sex'] === 1 ? "女" : "男");
+      setUserSex(userInfo['sex'] === 1 ? '女' : '男');
       setUserBloodPressureFirst(userInfo.recentDBP);
       setUserBloodPressureSecond(userInfo.recentMAP);
       setUserBloodPressureThird(userInfo.recentSBP);
       setUserBloodSugar(userInfo.recentSugar);
       setDiseaseTypeList(userInfo.diseaseTypeList);
-    }
-    catch (error) {
-      alert("Server Error!");
+    } catch (error) {
+      alert('Server Error!');
     }
   }, [props.userId]);
   const getUserTwitter = useCallback(async () => {
     try {
       const result = appAxios.get(`/getUserTwitter?userId=${props.userId}`);
-      setUserTwitterData((await result).data['twitterList'])
-    }
-    catch (error) {
-      alert("Server Error!");
+      setUserTwitterData((await result).data['twitterList']);
+    } catch (error) {
+      alert('Server Error!');
     }
   }, [props.userId]);
 
@@ -71,7 +77,7 @@ function PersonalInformationPage(props) {
     div.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleScroll);
     setTimeout(() => {
-        props.setIsShowing(false)
+      props.setIsShowing(false);
     }, 1000);
   }, [props, getUserInfo, getUserTwitter, handleScroll]);
   return (
@@ -99,7 +105,6 @@ function PersonalInformationPage(props) {
                 ))}
               </div>
             </div>
-
           </div>
         </div>
         <div className="pi_right">
@@ -108,21 +113,29 @@ function PersonalInformationPage(props) {
               <img src={ColorfulCircle} alt=""></img>
               <div className="status_area">
                 <div className="title">
-                  <div className="title_img"><img src={BloodPressure} alt=""></img></div>
+                  <div className="title_img">
+                    <img src={BloodPressure} alt=""></img>
+                  </div>
                   <span>血壓</span>
                 </div>
                 <div className="title_splitter_hr"></div>
                 <div className="status_list">
                   <div className="status_row">
-                    <div className="status_icon"><img src={BloodPressure_1} alt=""></img></div>
+                    <div className="status_icon">
+                      <img src={BloodPressure_1} alt=""></img>
+                    </div>
                     <span>{userBloodPressureFirst}</span>
                   </div>
                   <div className="status_row">
-                    <div className="status_icon"><img src={BloodPressure_2} alt=""></img></div>
+                    <div className="status_icon">
+                      <img src={BloodPressure_2} alt=""></img>
+                    </div>
                     <span>{userBloodPressureSecond}</span>
                   </div>
                   <div className="status_row">
-                    <div className="status_icon"><img src={BloodPressure_3} alt=""></img></div>
+                    <div className="status_icon">
+                      <img src={BloodPressure_3} alt=""></img>
+                    </div>
                     <span>{userBloodPressureThird}</span>
                   </div>
                 </div>
@@ -132,7 +145,9 @@ function PersonalInformationPage(props) {
               <img src={ColorfulCircle} alt=""></img>
               <div className="status_area">
                 <div className="title">
-                  <div className="title_img"><img src={BloodSugar} alt=""></img></div>
+                  <div className="title_img">
+                    <img src={BloodSugar} alt=""></img>
+                  </div>
                   <span>血糖</span>
                 </div>
                 <div className="title_splitter_hr"></div>
@@ -155,11 +170,19 @@ function PersonalInformationPage(props) {
       </div>
       <div className="bottom" ref={ref}>
         <div className="post_area">
-          {userTwitterData.map(Element => (
-            <div className="post" key={Element.twitterId} onClick={()=>{navigate(`/DietDetail/${Element.twitterId}`)}}>
+          {userTwitterData.map((Element) => (
+            <div
+              className="post"
+              key={Element.twitterId}
+              onClick={() => {
+                navigate(`/DietDetail/${Element.twitterId}`);
+              }}
+            >
               <img src={Element.imagesrc} alt="" />
             </div>
           ))}
+
+          {/* <div className="post"></div>
           <div className="post"></div>
           <div className="post"></div>
           <div className="post"></div>
@@ -175,8 +198,7 @@ function PersonalInformationPage(props) {
           <div className="post"></div>
           <div className="post"></div>
           <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
+          <div className="post"></div> */}
         </div>
       </div>
     </div>
