@@ -3,7 +3,8 @@ import React from 'react';
 import './Content.scss';
 
 function Content(props) {
-  const { title, content, date, time } = props;
+  // const { title, content, date, time } = props;
+  const { title, content, date } = props;
   return (
     <div id="Content">
       <h2>
@@ -11,7 +12,7 @@ function Content(props) {
       </h2>
       <div className="datetime">
         <time>{date}</time>
-        <time>{time}</time>
+        {/* <time>{time}</time> */}
       </div>
       <p>{content}</p>
     </div>

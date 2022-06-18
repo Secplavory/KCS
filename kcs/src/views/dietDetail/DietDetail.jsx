@@ -28,7 +28,7 @@ function DietDetail(props) {
         title: result.data.title,
         content: result.data.content,
         date: result.data.datetime.slice(0, 10),
-        time: result.data.datetime.slice(11, 19),
+        // time: result.data.datetime.slice(11, 19),
       });
     });
   }, [id]);

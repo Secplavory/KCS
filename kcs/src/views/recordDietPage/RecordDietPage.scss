@@ -1,92 +1,114 @@
 #RD {
-    height: 535px;
+  height: 535px;
+  position: relative;
+  top: -5px;
+  padding: 0 0 50px 0;
+  margin: 0;
+  overflow-y: auto;
+  .upload {
     position: relative;
-    top: -5px;
-    padding: 0 0 50px 0;
+    padding: 0;
     margin: 0;
-    overflow-y: auto;
-    .upload {
-        position: relative;
-        padding: 0;
-        margin: 0;
-        background: #f5f5f5;
-        width: 100%;
-        height: 350px;
-        .upload_center {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #8b837f;
-            svg {
-                width: 55px;
-                height: 55px;
-            }
-            h5 {
-                font-weight: bold;
-                margin: 10px 0;
-            }
-        }
+    background: #f5f5f5;
+    width: 100%;
+    height: 350px;
+    animation-name: blink-frame;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    .upload_center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #8b837f;
+      svg {
+        width: 55px;
+        height: 55px;
+      }
+      h5 {
+        font-weight: bold;
+        margin: 10px 0;
+      }
     }
-    .datepicker {
-        position: relative;
-        margin: 10px 20px;
-        span {
-            font-weight: bold;
-            letter-spacing: -1px;
-            color: #43c2df;
-        }
-        input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: inline-block;
-            outline: none;
-            appearance: none;
-            border: none;
-            width: 80px;
-            opacity: 0;
-        }
-        input::-webkit-datetime-edit {
-            display: none;
-        }
-        input::-webkit-calendar-picker-indicator {
-            width: 100%;
-        }
+  }
+  .datepicker {
+    font-size: calc(1.325rem + 0.8vw);
+    position: relative;
+    margin: 10px 20px;
+    span {
+      font-weight: bold;
+      letter-spacing: -1px;
+      color: #43c2df;
     }
-    .diet {
-        width: 100%;
-        margin: 0;
-        padding: 0 10px;
-        textarea {
-            font-weight: bold;
-            color: #8b837f;
-            padding: 10px 20px;
-            background: #f5f5f5;
-            width: 100%;
-            height: 75px;
-            display: inline-block;
-            outline: none;
-            appearance: none;
-            border: none;
-            border-radius: 25px;
-            resize: none;
-        }
+    #timeSelector {
+      animation-name: blink-frame;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
     }
-    .submit{
-        width: 100%;
-        height: 110px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        button{
-            font-weight: bold;
-            color: white;
-            padding: 2.5px 35px;
-            background: #33b6d2;
-            border: none;
-            border-radius: 30px;
-        }
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      outline: none;
+      appearance: none;
+      border: none;
+      width: 80px;
+      opacity: 0;
     }
+    input::-webkit-datetime-edit {
+      display: none;
+    }
+    input::-webkit-calendar-picker-indicator {
+      width: 100%;
+    }
+  }
+  .diet,
+  .desc {
+    width: 100%;
+    margin: 0;
+    padding: 0 10px;
+    margin: 1rem 0;
+    textarea {
+      font-weight: bold;
+      color: #8b837f;
+      padding: 10px 20px;
+      background: #f5f5f5;
+      width: 100%;
+      display: inline-block;
+      outline: none;
+      appearance: none;
+      border: none;
+      border-radius: 25px;
+      resize: none;
+    }
+  }
+  .submit {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      font-weight: bold;
+      color: white;
+      padding: 2.5px 35px;
+      background: #33b6d2;
+      border: none;
+      border-radius: 30px;
+    }
+  }
+}
+
+@keyframes blink-frame {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
