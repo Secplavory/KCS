@@ -9,6 +9,7 @@
     flex-wrap: nowrap;
     margin: 0px 7.5px;
     overflow-x: auto;
+    padding: 0.5rem;
     .search_choice {
       text-align: center;
       width: 98px;
@@ -43,21 +44,25 @@
     justify-content: center;
     align-items: flex-start;
     overflow-y: auto;
+    padding: 1rem;
     .post_area {
-      width: 320px;
+      width: 245px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       flex-wrap: wrap;
+      padding: 1rem;
+      background-color: whitesmoke;
       // margin: 0 0 115px 0;
       .post {
         width: 100px;
         height: 100px;
-        background-color: rgba($color: #69d4eb, $alpha: 0.5);
+        background-color: black;
         margin: 2.5px 2.5px;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 1rem;
         img {
           width: 100%;
           max-height: 100px;
@@ -65,19 +70,19 @@
         }
       }
     }
-    @media screen and (min-width: 420px) {
+    @media screen and (min-width: 350px) {
       .post_area {
-        width: 420px;
+        width: 350px;
       }
     }
-    @media screen and (min-width: 630px) {
+    @media screen and (min-width: 455px) {
       .post_area {
-        width: 630px;
+        width: 455px;
       }
     }
-    @media screen and (min-width: 735px) {
+    @media screen and (min-width: 770px) {
       .post_area {
-        width: 735px;
+        width: 770px;
       }
     }
   }

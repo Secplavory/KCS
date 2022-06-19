@@ -15,6 +15,7 @@
     animation-name: blink-frame;
     animation-duration: 3s;
     animation-iteration-count: infinite;
+    overflow: hidden;
     .upload_center {
       position: absolute;
       top: 50%;
@@ -30,6 +31,9 @@
         font-weight: bold;
         margin: 10px 0;
       }
+    }
+    img {
+      width: 100%;
     }
   }
   .datepicker {

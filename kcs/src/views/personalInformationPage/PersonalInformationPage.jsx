@@ -181,24 +181,6 @@ function PersonalInformationPage(props) {
               <img src={Element.imagesrc} alt="" />
             </div>
           ))}
-
-          {/* <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div>
-          <div className="post"></div> */}
         </div>
       </div>
     </div>

@@ -199,11 +199,13 @@
     align-items: flex-start;
     overflow-y: auto;
     .post_area {
-      width: 320px;
+      width: 245px;
       display: flex;
       justify-content: flex-start;
       align-items: center;
       flex-wrap: wrap;
+      background-color: whitesmoke;
+      padding: 1rem;
       .post {
         width: 100px;
         height: 100px;
@@ -223,19 +225,19 @@
         }
       }
     }
-    @media screen and (min-width: 420px) {
+    @media screen and (min-width: 350px) {
       .post_area {
-        width: 420px;
+        width: 350px;
       }
     }
-    @media screen and (min-width: 630px) {
+    @media screen and (min-width: 455px) {
       .post_area {
-        width: 630px;
+        width: 455px;
       }
     }
-    @media screen and (min-width: 735px) {
+    @media screen and (min-width: 770px) {
       .post_area {
-        width: 735px;
+        width: 770px;
       }
     }
   }

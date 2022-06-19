@@ -97,6 +97,7 @@ function RecordDietPage(props) {
           hidden
           onChange={(e) => uploadImage(e.target.files[0])}
         />
+        <img src={Imagesrc} alt="" />
       </label>
       <div className="datepicker">
         <span>
